@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace MovingWindow
 {
-    enum Directions
+    enum Direction
     {
         moveStartPosition,
         moveLeft,
@@ -14,7 +14,7 @@ namespace MovingWindow
     }
     public partial class MainForm : Form
     {
-        Directions direction;
+        Direction direction;
         Rectangle workingArea;
         int defaultLeft;
         int defaultTop;
@@ -28,23 +28,23 @@ namespace MovingWindow
         {
             if (e.KeyCode == Keys.Left)
             {
-                direction = Directions.moveLeft;
+                direction = Direction.moveLeft;
             }
             if (e.KeyCode == Keys.Right)
             {
-                direction = Directions.moveRight;
+                direction = Direction.moveRight;
             }
             if (e.KeyCode == Keys.Up)
             {
-                direction = Directions.moveUp;
+                direction = Direction.moveUp;
             }
             if (e.KeyCode == Keys.Down)
             {
-                direction = Directions.moveDown;
+                direction = Direction.moveDown;
             }
             if (e.KeyCode == Keys.Enter)
             {
-                direction = Directions.moveStartPosition;
+                direction = Direction.moveStartPosition;
             }
         }
         private void TimerMoving_Tick(object sender, EventArgs e)
@@ -62,23 +62,23 @@ namespace MovingWindow
 
         private void MoveWindow(int shiftStep)
         {
-            if (direction == Directions.moveLeft && isMovePossible(shiftStep))
+            if (direction == Direction.moveLeft && isMovePossible(shiftStep))
             {
                 Left -= shiftStep;
             }
-            if (direction == Directions.moveRight && isMovePossible(shiftStep))
+            if (direction == Direction.moveRight && isMovePossible(shiftStep))
             {
                 Left += shiftStep;
             }
-            if (direction == Directions.moveUp && isMovePossible(shiftStep))
+            if (direction == Direction.moveUp && isMovePossible(shiftStep))
             {
                 Top -= shiftStep;
             }
-            if (direction == Directions.moveDown && isMovePossible(shiftStep))
+            if (direction == Direction.moveDown && isMovePossible(shiftStep))
             {
                 Top += shiftStep;
             }
-            if (direction == Directions.moveStartPosition)
+            if (direction == Direction.moveStartPosition)
             {
                 Top = defaultTop;
                 Left = defaultLeft;
@@ -89,47 +89,47 @@ namespace MovingWindow
             bool movePossibility = false;
             switch (direction)
             {
-                case Directions.moveStartPosition:
+                case Direction.moveStartPosition:
                     movePossibility = true;
                     break;
-                case Directions.moveLeft:
+                case Direction.moveLeft:
                     if (Left - shiftStep <= 0)
                     {
                         movePossibility = false;
-                        direction = Directions.moveRight;
+                        direction = Direction.moveRight;
                     }
                     else
                     {
                         movePossibility = true;
                     }
                     break;
-                case Directions.moveRight:
+                case Direction.moveRight:
                     if (Left + Width + shiftStep >= workingArea.Width)
                     {
                         movePossibility = false;
-                        direction = Directions.moveLeft;
+                        direction = Direction.moveLeft;
                     }
                     else
                     {
                         movePossibility = true;
                     }
                     break;
-                case Directions.moveUp:
+                case Direction.moveUp:
                     if (Top - shiftStep <= 0)
                     {
                         movePossibility = false;
-                        direction = Directions.moveDown;
+                        direction = Direction.moveDown;
                     }
                     else
                     {
                         movePossibility = true;
                     }
                     break;
-                case Directions.moveDown:
+                case Direction.moveDown:
                     if (Top + Height + shiftStep >= workingArea.Height)
                     {
                         movePossibility = false;
-                        direction = Directions.moveUp;
+                        direction = Direction.moveUp;
                     }
                     else
                     {
