@@ -19,7 +19,6 @@ namespace MovingWindow
         int defaultLeft;
         int defaultTop;
         public MainForm()
-
         {
             InitializeComponent();
             Timer.Start();
