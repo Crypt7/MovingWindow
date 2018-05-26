@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace MovingWindow
 {
-    static class Program
+    static internal  class Program
     {
         /// <summary>
         /// The main entry point for the application.

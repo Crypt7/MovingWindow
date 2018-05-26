@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace MovingWindow
 {
-    enum Direction
+    internal enum Direction
     {
         moveStartPosition,
         moveLeft,
