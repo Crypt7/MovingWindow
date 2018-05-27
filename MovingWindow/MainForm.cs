@@ -14,10 +14,10 @@ namespace MovingWindow
     }
     public partial class MainForm : Form
     {
-        int defaultLeft;
-        int defaultTop;
-        Direction direction;
-        Rectangle workingArea;
+        private int defaultLeft;
+        private int defaultTop;
+        private Direction direction;
+        private Rectangle workingArea;
         
         public MainForm()
         {
