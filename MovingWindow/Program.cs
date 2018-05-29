@@ -3,13 +3,13 @@ using System.Windows.Forms;
 
 namespace MovingWindow
 {
-    static internal class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static internal void Main()
+        internal static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
