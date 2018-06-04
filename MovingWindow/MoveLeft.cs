@@ -1,5 +1,4 @@
-﻿using System;
-namespace MovingWindow
+﻿namespace MovingWindow
 {
     internal class MoveLeft: ICommand
     {

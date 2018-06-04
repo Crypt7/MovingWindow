@@ -12,15 +12,18 @@ namespace MovingWindow
         internal Keys cmd = Keys.Enter;
         internal Rectangle workingArea;
         private Dictionary<Keys, ICommand> _command = new Dictionary<Keys, ICommand>();
+
         public MainForm()
         {
             InitializeComponent();
             Timer.Start();
         }
+
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             pressedKey = e.KeyCode;
         }
+
         private void TimerMoving_Tick(object sender, EventArgs e)
         {
             if (_command.ContainsKey(pressedKey))
@@ -51,6 +54,7 @@ namespace MovingWindow
             Left = leftTop.X;
             Top = leftTop.Y;
         }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             centerLeftTop = new Point(Left, Top);
