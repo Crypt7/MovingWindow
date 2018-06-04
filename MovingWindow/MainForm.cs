@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Collections.Generic;
 namespace MovingWindow
 {
-    internal enum Direction
-    {
-        moveStartPosition,
-        moveLeft,
-        moveRight,
-        moveUp,
-        moveDown
-    }
     public partial class MainForm : Form
     {
-        private int defaultLeft;
-        private int defaultTop;
-        private Direction direction;
-        private Rectangle workingArea;
-        
+        internal Point centerLeftTop;
+        internal Point leftTop;
+        internal Keys pressedKey;
+        internal Keys cmd = Keys.Enter;
+        internal Rectangle workingArea;
+        private Dictionary<Keys, ICommand> _command = new Dictionary<Keys, ICommand>();
         public MainForm()
         {
             InitializeComponent();
@@ -26,120 +19,49 @@ namespace MovingWindow
         }
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left)
-            {
-                direction = Direction.moveLeft;
-            }
-            if (e.KeyCode == Keys.Right)
-            {
-                direction = Direction.moveRight;
-            }
-            if (e.KeyCode == Keys.Up)
-            {
-                direction = Direction.moveUp;
-            }
-            if (e.KeyCode == Keys.Down)
-            {
-                direction = Direction.moveDown;
-            }
-            if (e.KeyCode == Keys.Enter)
-            {
-                direction = Direction.moveStartPosition;
-            }
+            pressedKey = e.KeyCode;
         }
         private void TimerMoving_Tick(object sender, EventArgs e)
         {
-            int shiftStep = 6;
-            MoveWindow(shiftStep);
+            if (_command.ContainsKey(pressedKey))
+            {
+                cmd = pressedKey;
+            }
+            _command[cmd].Execute();
+            if (leftTop.X < 0)
+            {
+                pressedKey = Keys.Right;
+                leftTop.X = 0;
+            }
+            if (leftTop.X+Width > workingArea.Width)
+            {
+                pressedKey = Keys.Left;
+                leftTop.X = workingArea.Width-Width;
+            }
+            if (leftTop.Y < 0)
+            {
+                pressedKey = Keys.Down;
+                leftTop.Y = 0;
+            }
+            if (leftTop.Y > workingArea.Height - Height)
+            {
+                pressedKey = Keys.Up;
+                leftTop.Y = workingArea.Height - Height;
+            }
+            Left = leftTop.X;
+            Top = leftTop.Y;
         }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
-            defaultLeft = Left;
-            defaultTop = Top;
+            centerLeftTop = new Point(Left, Top);
+            leftTop = new Point(Left, Top);
             workingArea = Screen.GetWorkingArea(this);
+            int shiftStep = 6;
+            _command.Add(Keys.Left, new MoveLeft(leftTop, shiftStep));
+            _command.Add(Keys.Right, new MoveRight(leftTop, shiftStep));
+            _command.Add(Keys.Up, new MoveUp(leftTop, shiftStep));
+            _command.Add(Keys.Down, new MoveDown(leftTop, shiftStep));
+            _command.Add(Keys.Enter, new MoveCenter(leftTop, centerLeftTop));
         }
-
-        private void MoveWindow(int shiftStep)
-        {
-            if (direction == Direction.moveLeft && isMovePossible(shiftStep))
-            {
-                Left -= shiftStep;
-            }
-            if (direction == Direction.moveRight && isMovePossible(shiftStep))
-            {
-                Left += shiftStep;
-            }
-            if (direction == Direction.moveUp && isMovePossible(shiftStep))
-            {
-                Top -= shiftStep;
-            }
-            if (direction == Direction.moveDown && isMovePossible(shiftStep))
-            {
-                Top += shiftStep;
-            }
-            if (direction == Direction.moveStartPosition)
-            {
-                Top = defaultTop;
-                Left = defaultLeft;
-            }
-        }
-        private bool isMovePossible(int shiftStep = 6)
-        {
-            bool movePossibility = false;
-            switch (direction)
-            {
-                case Direction.moveStartPosition:
-                    movePossibility = true;
-                    break;
-                case Direction.moveLeft:
-                    if (Left - shiftStep <= 0)
-                    {
-                        movePossibility = false;
-                        direction = Direction.moveRight;
-                    }
-                    else
-                    {
-                        movePossibility = true;
-                    }
-                    break;
-                case Direction.moveRight:
-                    if (Left + Width + shiftStep >= workingArea.Width)
-                    {
-                        movePossibility = false;
-                        direction = Direction.moveLeft;
-                    }
-                    else
-                    {
-                        movePossibility = true;
-                    }
-                    break;
-                case Direction.moveUp:
-                    if (Top - shiftStep <= 0)
-                    {
-                        movePossibility = false;
-                        direction = Direction.moveDown;
-                    }
-                    else
-                    {
-                        movePossibility = true;
-                    }
-                    break;
-                case Direction.moveDown:
-                    if (Top + Height + shiftStep >= workingArea.Height)
-                    {
-                        movePossibility = false;
-                        direction = Direction.moveUp;
-                    }
-                    else
-                    {
-                        movePossibility = true;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            return movePossibility;
-        }
-    }
+    }  
 }
