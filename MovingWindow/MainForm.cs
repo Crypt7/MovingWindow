@@ -8,8 +8,7 @@ namespace MovingWindow
     {
         internal Point centerLeftTop;
         internal Point leftTop;
-        internal Keys pressedKey;
-        internal Keys cmd = Keys.Enter;
+        internal Keys pressedKey = Keys.Enter;
         internal Rectangle workingArea;
         private Dictionary<Keys, ICommand> _command = new Dictionary<Keys, ICommand>();
 
@@ -21,16 +20,13 @@ namespace MovingWindow
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            pressedKey = e.KeyCode;
+            if (_command.ContainsKey(e.KeyCode))
+                pressedKey = e.KeyCode;
         }
 
         private void TimerMoving_Tick(object sender, EventArgs e)
         {
-            if (_command.ContainsKey(pressedKey))
-            {
-                cmd = pressedKey;
-            }
-            _command[cmd].Execute();
+            _command[pressedKey].Execute();
             if (leftTop.X < 0)
             {
                 pressedKey = Keys.Right;
