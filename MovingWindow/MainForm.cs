@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+
 namespace MovingWindow
 {
     public partial class MainForm : Form
