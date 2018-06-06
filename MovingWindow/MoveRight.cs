@@ -9,7 +9,8 @@
             this.leftTop = leftTop;
             this.shift = shift;
         }
-        public void Execute()        {
+        public void Execute()
+        {
             leftTop.X += shift;
         }
     }
