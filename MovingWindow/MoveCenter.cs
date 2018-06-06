@@ -1,6 +1,6 @@
 ﻿namespace MovingWindow
 {
-    class MoveCenter:ICommand
+    internal class MoveCenter:ICommand
     {
         Point leftTop;
         Point centerLeftTop;

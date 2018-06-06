@@ -1,6 +1,6 @@
 ﻿namespace MovingWindow
 {
-    class MoveDown:ICommand
+    internal class MoveDown:ICommand
     {
         Point leftTop;
         int shift;

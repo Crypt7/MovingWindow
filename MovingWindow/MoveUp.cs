@@ -1,6 +1,6 @@
 ﻿namespace MovingWindow
 {
-    class MoveUp: ICommand
+    internal class MoveUp: ICommand
     {
         Point leftTop;
         int shift;
