@@ -22,7 +22,9 @@ namespace MovingWindow
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (_command.ContainsKey(e.KeyCode))
+            {
                 pressedKey = e.KeyCode;
+            }
         }
 
         private void TimerMoving_Tick(object sender, EventArgs e)
