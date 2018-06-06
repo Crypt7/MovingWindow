@@ -2,8 +2,8 @@
 {
     internal class MoveCenter:ICommand
     {
-        Point leftTop;
-        Point centerLeftTop;
+        private Point leftTop;
+        private Point centerLeftTop;
         public MoveCenter(Point leftTop, Point centerLeftTop)
         {
             this.leftTop = leftTop;

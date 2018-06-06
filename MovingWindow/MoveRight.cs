@@ -2,8 +2,8 @@
 {
     internal class MoveRight: ICommand
     {
-        Point leftTop;
-        int shift;
+        private Point leftTop;
+        private int shift;
         public MoveRight(Point leftTop, int shift)
         {
             this.leftTop = leftTop;
