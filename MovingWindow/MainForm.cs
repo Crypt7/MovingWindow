@@ -6,10 +6,10 @@ namespace MovingWindow
 {
     public partial class MainForm : Form
     {
-        internal Point centerLeftTop;
-        internal Point leftTop;
-        internal Keys pressedKey = Keys.Enter;
-        internal Rectangle workingArea;
+        private Point centerLeftTop;
+        private Point leftTop;
+        private Keys pressedKey = Keys.Enter;
+        private Rectangle workingArea;
         private Dictionary<Keys, ICommand> _command = new Dictionary<Keys, ICommand>();
 
         public MainForm()
