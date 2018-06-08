@@ -31,6 +31,7 @@ namespace MovingWindow
         {
             MoveForm();
         }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             centerLeftTop = new Point(Left, Top);
@@ -43,6 +44,7 @@ namespace MovingWindow
             _command.Add(Keys.Down, new MoveDown(leftTop, shiftStep));
             _command.Add(Keys.Enter, new MoveCenter(leftTop, centerLeftTop));
         }
+
         private void MoveForm()
         {
             _command[pressedKey].Execute();
@@ -69,5 +71,5 @@ namespace MovingWindow
             Left = leftTop.X;
             Top = leftTop.Y;
         }
-    }  
+    }
 }
