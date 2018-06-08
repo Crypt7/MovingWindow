@@ -16,7 +16,7 @@ namespace MovingWindow
         public MainForm()
         {
             InitializeComponent();
-            Timer.Start();
+            timer.Start();
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
