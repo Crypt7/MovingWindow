@@ -11,8 +11,8 @@ namespace MovingWindow
         private Point leftTop;
         private Keys pressedKey = Keys.Enter;
         private Rectangle workingArea;
-        //private Dictionary<Keys, ICommand> _command = new Dictionary<Keys, ICommand>();
-        SortedList<Keys, ICommand> _command = new SortedList<Keys, ICommand>();
+        private IDictionary<Keys, ICommand> _command = new Dictionary<Keys, ICommand>();
+
         public MainForm()
         {
             InitializeComponent();
