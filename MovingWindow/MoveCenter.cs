@@ -1,6 +1,6 @@
 ﻿namespace MovingWindow
 {
-    internal class MoveCenter:ICommand
+    internal class MoveCenter : ICommand
     {
         private Point leftTop;
         private Point centerLeftTop;
